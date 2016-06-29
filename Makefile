@@ -1,5 +1,5 @@
 PREFIX = /usr/local
-CFLAGS += -Wall -g
+CFLAGS += -Wall -g -DB460800 -DB921600
 
 INSTALL = install
 
