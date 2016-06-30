@@ -570,7 +570,7 @@ close:
 		else	fprintf(diag, "failed.\n");
 	} else { //always run exit sequence if present
 		if (gpio_seq && strchr(gpio_seq, ':'))
-			return gpio_bl_exit(port, gpio_seq);
+			ret =  gpio_bl_exit(port, gpio_seq) || ret;
 	}
 
 	if (p_st  ) parser->close(p_st);
