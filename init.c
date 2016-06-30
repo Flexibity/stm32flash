@@ -171,7 +171,7 @@ static int gpio_sequence(struct port_interface *port, const char *s, size_t l)
 	int delimiter = 0;
 	const char *sig_str = NULL;
 
-	fprintf(stdout, "\nGPIO sequence start\n\n", sleep_time);
+	fprintf(stdout, "\nGPIO sequence start\n\n");
 	ret = 1;
 	while (ret == 1 && *s && l > 0) {
 		sig_str = NULL;
@@ -259,7 +259,7 @@ static int gpio_sequence(struct port_interface *port, const char *s, size_t l)
 		free(to_free);
 	}
 #endif
-	fprintf(stdout, "\n\nGPIO sequence end\n", sleep_time);
+	fprintf(stdout, "\n\nGPIO sequence end\n");
 	return ret;
 }
 
