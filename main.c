@@ -823,7 +823,16 @@ void show_help(char *name) {
 		"			This is useful if the reset fails\n"
 		"	-i GPIO_string	GPIO sequence to enter/exit bootloader mode\n"
 		"			GPIO_string=[entry_seq][:[exit_seq]]\n"
-		"			sequence=[-]n[,sequence]\n"
+		"			sequence=[[-]signal]&|,[&|,][sequence]\n"
+
+		"           sequence is evaluated with the following delimiters:\n"
+		"              ',' brings 100ms delay between signals\n"
+		"              '&' brings 0ms delay between signals\n"
+		"           the following signals can appear in sequence:\n"
+		"              integer number represents GPIO pin\n"
+		"              'dtr' or 'rts' or 'brk' represents COM port signals\n"
+		"           the following modificators can be applied to signals:\n"
+		"              '-' resets signal\n"
 		"	-R		Reset device at exit.\n"
 		"\n"
 		"Examples:\n"
@@ -845,9 +854,14 @@ void show_help(char *name) {
 		"		%s -g 0x0 /dev/ttyS0\n"
 		"\n"
 		"	GPIO sequence:\n"
-		"	- entry sequence: GPIO_3=low, GPIO_2=low, GPIO_2=high\n"
-		"	- exit sequence: GPIO_3=high, GPIO_2=low, GPIO_2=high\n"
-		"		%s -R -i -3,-2,2:3,-2,2 /dev/ttyS0\n",
+		"	- entry sequence: GPIO_3=low, GPIO_2=low, 100ms delay, GPIO_2=high\n"
+		"	- exit sequence: GPIO_3=high, GPIO_2=low, 300ms delay, GPIO_2=high\n"
+		"		%s -R -i -3&-2,2:3&-2,,,2 /dev/ttyS0\n"
+		"	GPIO sequence to bring delays on start after port opening:\n"
+		"	- entry sequence: delay 500ms\n"
+		"	- exit sequence: rts=high, dtr=low, 300ms delay, GPIO_2=high\n"
+		"		%s -R -i ,,,,,:rts&-dtr,,,2 /dev/ttyS0\n",
+		name,
 		name,
 		name,
 		name,
