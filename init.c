@@ -237,11 +237,13 @@ static int gpio_sequence(struct port_interface *port, const char *s, size_t l)
 		if(!delimiter){ //actual gpio driving, delimiters just bring delays
 			if (gpio < 0){
 				gpio = -gpio;
-				fprintf(stdout, "setting port signal %.3s to %i\n", sig_str, level);
+				fprintf(stdout, "setting port signal %.3s to %i... ", sig_str, level);
 				ret = (port->gpio(port, gpio, level) != PORT_ERR_OK);
+				printStatus(stdout, ret);
 			}else{
-				fprintf(stdout, "setting gpio %i to %i\n", gpio, level);
+				fprintf(stdout, "setting gpio %i to %i... ", gpio, level);
 				ret = (drive_gpio(gpio, level, &gpio_to_release) != 1);
+				printStatus(stdout, ret);
 			}
 		}
 
