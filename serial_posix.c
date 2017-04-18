@@ -105,28 +105,42 @@ static port_err_t serial_setup(serial_t *h, const serial_baud_t baud,
 		case SERIAL_BAUD_57600:   port_baud = B57600; break;
 		case SERIAL_BAUD_115200:  port_baud = B115200; break;
 		case SERIAL_BAUD_230400:  port_baud = B230400; break;
-#ifdef B460800
+#if defined(B460800) && defined(__linux__)
 		case SERIAL_BAUD_460800:  port_baud = B460800; break;
+#else //for mac
+		case SERIAL_BAUD_460800:  port_baud = 460800; break;
 #endif /* B460800 */
-#ifdef B921600
+#if defined(B921600) && defined(__linux__)
 		case SERIAL_BAUD_921600:  port_baud = B921600; break;
+#else //for mac
+		case SERIAL_BAUD_921600:  port_baud = 921600; break;
 #endif /* B921600 */
-#ifdef B500000
+#if defined(B500000) && defined(__linux__)
 		case SERIAL_BAUD_500000:  port_baud = B500000; break;
+#else //for mac
+		case SERIAL_BAUD_500000:  port_baud = 500000; break;
 #endif /* B500000 */
-#ifdef B576000
+#if defined(B576000) && defined(__linux__)
 		case SERIAL_BAUD_576000:  port_baud = B576000; break;
+#else //for mac
+		case SERIAL_BAUD_576000:  port_baud = 576000; break;
 #endif /* B576000 */
-#ifdef B1000000
+#if defined(B1000000) && defined(__linux__)
 		case SERIAL_BAUD_1000000: port_baud = B1000000; break;
+#else //for mac
+		case SERIAL_BAUD_1000000: port_baud = 1000000; break;
 #endif /* B1000000 */
-#ifdef B1500000
+#if defined(B1500000) && defined(__linux__)
 		case SERIAL_BAUD_1500000: port_baud = B1500000; break;
+#else //for mac
+		case SERIAL_BAUD_1500000: port_baud = 1500000; break;
 #endif /* B1500000 */
-#ifdef B2000000
+#if defined(B2000000) && defined(__linux__)
 		case SERIAL_BAUD_2000000: port_baud = B2000000; break;
+#else //for mac
+		case SERIAL_BAUD_2000000: port_baud = 2000000; break;
 #endif /* B2000000 */
-
+		
 		case SERIAL_BAUD_INVALID:
 		default:
 			return PORT_ERR_UNKNOWN;
